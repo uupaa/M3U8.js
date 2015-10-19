@@ -16,7 +16,8 @@ var test = new Test("M3U", {
         errorback:  function(error) {
         }
     }).add([
-        testM3U_parse,
+        testM3U_parseMasterPlayList,
+        testM3U_parseIndexPlayList,
     ]);
 
 if (IN_BROWSER || IN_NW) {
@@ -34,7 +35,34 @@ if (IN_BROWSER || IN_NW) {
 }
 
 // --- test cases ------------------------------------------
-function testM3U_parse(test, pass, miss) {
+function testM3U_parseMasterPlayList(test, pass, miss) {
+
+    var str = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-STREAM-INF:BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768\n\
+chunklist_w1076224352.m3u8\n\
+';
+
+    var m3u = M3U.parse(str);
+
+    console.dir(m3u);
+
+    if (m3u["version"] === 3) {
+        if (m3u["file"][0].bandwidth === 710852) {
+            if (m3u["file"][0].codecs === "avc1.66.30,mp4a.40.2") {
+                if (m3u["file"][0].resolution === "432x768") {
+                    test.done(pass());
+                    return;
+                }
+            }
+        }
+    }
+    test.done(miss());
+}
+
+function testM3U_parseIndexPlayList(test, pass, miss) {
+
     var str = "\n\
 #EXTM3U\n\
 #EXT-X-VERSION:3\n\
@@ -53,13 +81,13 @@ media_w1360442349_1461.ts\n\
 
     console.dir(m3u);
 
-    if (m3u["EXT-X-VERSION"] === 3) {
-        if (m3u["EXT-X-ALLOW-CACHE"] === "NO") {
-            if (m3u["EXT-X-TARGETDURATION"] === 2) {
-                if (m3u["EXT-X-MEDIA-SEQUENCE"] === 1459) {
-                    if (m3u["EXTINF"][0].duration === 0.858) {
-                        if (m3u["EXTINF"][1].duration === 0.886) {
-                            if (m3u["EXTINF"][2].duration === 0.835) {
+    if (m3u["version"] === 3) {
+        if (m3u["cache"] === false) {
+            if (m3u["duration"] === 2) {
+                if (m3u["sequence"] === 1459) {
+                    if (m3u["file"][0].duration === 0.858) {
+                        if (m3u["file"][1].duration === 0.886) {
+                            if (m3u["file"][2].duration === 0.835) {
                                 test.done(pass());
                                 return;
                             }
