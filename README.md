@@ -13,11 +13,28 @@ M3U parser
 <script src="<module-dir>/lib/WebModule.js"></script>
 <script src="<module-dir>/lib/M3U.js"></script>
 <script>
-var text = "#EXTM3U\n#EXT-X-VERSION:3\n....";
 
-var m3u = M3U.parse(text);
+var str = "\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:1459\n\
+#EXTINF:0.858,\n\
+media_w1360442349_1459.ts\n\
+#EXTINF:0.886,\n\
+media_w1360442349_1460.ts\n\
+#EXTINF:0.835,\n\
+media_w1360442349_1461.ts\n\
+";
 
-m3u["EXT-X-VERSION"]; // 3
+var m3u = M3U.parse(str);
+
+m3u.version           // -> 3
+m3u.duration          // -> 2
+m3u.sequence          // -> 1459
+m3u.file[0].duration  // -> 0.858
+m3u.file[0].url       // -> media_w1360442349_1459.ts
 
 </script>
 ```
