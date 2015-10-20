@@ -18,6 +18,8 @@ var test = new Test("M3U", {
     }).add([
         testM3U_parseMasterPlayList,
         testM3U_parseIndexPlayList,
+        testM3U_buildMasterPlayList,
+        testM3U_buildIndexPlayList,
     ]);
 
 if (IN_BROWSER || IN_NW) {
@@ -49,13 +51,12 @@ chunklist_w1076224352.m3u8\n\
     console.dir(m3u);
 
     if (m3u["version"] === 3) {
-        if (m3u["file"][0].bandwidth === 710852) {
-            if (m3u["file"][0].codecs === "avc1.66.30,mp4a.40.2") {
-                if (m3u["file"][0].resolution === "432x768") {
-                    test.done(pass());
-                    return;
-                }
-            }
+        if (m3u["file"][0].bandwidth === 710852 &&
+            m3u["file"][0].codecs === "avc1.66.30,mp4a.40.2" &&
+            m3u["file"][0].resolution === "432x768") {
+
+            test.done(pass());
+            return;
         }
     }
     test.done(miss());
@@ -98,6 +99,50 @@ media_w1360442349_1461.ts\n\
         }
     }
     test.done(miss());
+}
+
+function testM3U_buildMasterPlayList(test, pass, miss) {
+
+    var str = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-STREAM-INF:BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768\n\
+chunklist_w1076224352.m3u8';
+
+    var m3u = M3U.parse(str);
+    var result = M3U.build(m3u);
+
+    if (str === result) {
+        test.done(pass());
+    } else {
+        test.done(miss());
+    }
+}
+
+function testM3U_buildIndexPlayList(test, pass, miss) {
+
+    var str = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:1459\n\
+#EXTINF:0.858,\n\
+media_w1360442349_1459.ts\n\
+#EXTINF:0.886,\n\
+media_w1360442349_1460.ts\n\
+#EXTINF:0.835,\n\
+media_w1360442349_1461.ts';
+
+    var m3u_1 = M3U.parse(str);
+    var tmp   = M3U.build(m3u_1);
+    var m3u_2 = M3U.parse(tmp);
+    var result1 = JSON.stringify(m3u_1);
+    var result2 = JSON.stringify(m3u_2);
+
+    if (result1 === result2) {
+        test.done(pass());
+    } else {
+        test.done(miss());
+    }
 }
 
 return test.run();
