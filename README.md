@@ -14,7 +14,7 @@ M3U parser
 <script src="<module-dir>/lib/M3U.js"></script>
 <script>
 
-var str = "\n\
+var m3u8 = "\n\
 #EXTM3U\n\
 #EXT-X-VERSION:3\n\
 #EXT-X-ALLOW-CACHE:NO\n\
@@ -28,13 +28,14 @@ media_w1360442349_1460.ts\n\
 media_w1360442349_1461.ts\n\
 ";
 
-var m3u = M3U.parse(str);
+var obj = M3U.parse(m3u8); // -> { version: 3, duration: 2, ... }
+var m3u = M3U.build(obj);  // -> "EXTM3U\n...."
 
-m3u.version           // -> 3
-m3u.duration          // -> 2
-m3u.sequence          // -> 1459
-m3u.file[0].duration  // -> 0.858
-m3u.file[0].url       // -> media_w1360442349_1459.ts
+json.version           // -> 3
+json.duration          // -> 2
+json.sequence          // -> 1459
+json.file[0].duration  // -> 0.858
+json.file[0].url       // -> media_w1360442349_1459.ts
 
 </script>
 ```
