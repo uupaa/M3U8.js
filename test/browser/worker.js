@@ -12,16 +12,16 @@ onmessage = function(event) {
         self.console.table = function() {};
     }
 
-    importScripts("../lib/WebModule.js");
+    importScripts("../../lib/WebModule.js");
 
     // publish to global
     WebModule.publish = true;
 
-    __MODULES__
-    __WMTOOLS__
-    __SOURCES__
-    __OUTPUT__
-    __TEST_CASE__
+    
+    importScripts("../wmtools.js");
+    importScripts("../../lib/M3U.js");
+    importScripts("../../release/M3U.w.min.js");
+    importScripts("../testcase.js");
 
     self.postMessage(self.unitTest);
 };

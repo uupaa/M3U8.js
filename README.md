@@ -2,12 +2,16 @@
 
 [![npm](https://nodei.co/npm/uupaa.m3u.js.svg?downloads=true&stars=true)](https://nodei.co/npm/uupaa.m3u.js/)
 
-M3U parser
+M3U parser and builder
 
 - Please refer to [Spec](https://github.com/uupaa/M3U.js/wiki/) and [API Spec](https://github.com/uupaa/M3U.js/wiki/M3U) links.
 - The M3U.js is made of [WebModule](https://github.com/uupaa/WebModule).
 
-## Browser and NW.js(node-webkit)
+## Documentation
+- [Spec](https://github.com/uupaa/M3U.js/wiki/)
+- [API Spec](https://github.com/uupaa/M3U.js/wiki/M3U)
+
+## Browser, NW.js and Electron
 
 ```js
 <script src="<module-dir>/lib/WebModule.js"></script>
