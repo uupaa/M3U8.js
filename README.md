@@ -38,8 +38,8 @@ var str = M3U.build(obj);  // -> M3U format string. "EXTM3U\n...."
 obj.VERSION           // -> 3
 obj.DURATION          // -> 2
 obj.SEQUENCE          // -> 1459
-obj.LINK[0].DURATION  // -> 0.858
-obj.LINK[0].URL       // -> media_w1360442349_1459.ts
+obj.LINK[0].DURATION  // -> "0.858"
+obj.LINK[0].URL       // -> "media_w1360442349_1459.ts"
 
 </script>
 ```
