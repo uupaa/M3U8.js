@@ -32,14 +32,14 @@ media_w1360442349_1460.ts\n\
 media_w1360442349_1461.ts\n\
 ";
 
-var obj = M3U.parse(m3u8); // -> { version: 3, duration: 2, ... }
-var m3u = M3U.build(obj);  // -> "EXTM3U\n...."
+var obj = M3U.parse(m3u8); // -> Object. { VERSION: 3, DURATION: 2, ... }
+var str = M3U.build(obj);  // -> M3U format string. "EXTM3U\n...."
 
-json.version           // -> 3
-json.duration          // -> 2
-json.sequence          // -> 1459
-json.file[0].duration  // -> 0.858
-json.file[0].url       // -> media_w1360442349_1459.ts
+obj.VERSION           // -> 3
+obj.DURATION          // -> 2
+obj.SEQUENCE          // -> 1459
+obj.LINK[0].DURATION  // -> 0.858
+obj.LINK[0].URL       // -> media_w1360442349_1459.ts
 
 </script>
 ```

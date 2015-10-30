@@ -21,6 +21,7 @@
     },
     "rules": {
         "strict":           [0],
+        "quotes":           [0],
         "new-cap":          [0],
         "no-shadow":        [0],
         "camelcase":        [0],
