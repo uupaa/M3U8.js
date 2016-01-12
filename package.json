@@ -1,7 +1,7 @@
 {
   "name": "uupaa.m3u.js",
-  "version": "0.1.2",
-  "description": "",
+  "version": "0.1.3",
+  "description": "M3U/M3U8 parser and builder.",
   "url": "https://github.com/uupaa/M3U.js",
   "keywords": ["MPEG2TS", "MP2TS", "M3U", "M3U8", "uupaa", "WebModule", "Unstable"],
   "repository": {
@@ -22,6 +22,7 @@
     "el": "electron test/el",
     "nw": "nw test/nw",
     "add-src": "node ../WebModule/run/add-src.js",
+    "add-subclass": "node ../WebModule/run/add-subclass.js",
     "sim": "node ../WebModule/run/sim.js http://localhost:8000/M3U.js/test/browser/index.html",
     "simx": "node ../WebModule/run/sim.js stop",
     "lint": "eslint lib/*.js",
@@ -35,24 +36,34 @@
     "develop": false,
     "label": ["@dev"],
     "browser": {
-      "source": ["lib/M3U.js"],
-      "output": "release/M3U.b.min.js"
+      "output": "release/M3U.b.min.js",
+      "source": [
+        "lib/M3U.js"
+      ]
     },
     "worker": {
-      "source": ["lib/M3U.js"],
-      "output": "release/M3U.w.min.js"
+      "output": "release/M3U.w.min.js",
+      "source": [
+        "lib/M3U.js"
+      ]
     },
     "node": {
-      "source": ["lib/M3U.js"],
-      "output": "release/M3U.n.min.js"
+      "output": "release/M3U.n.min.js",
+      "source": [
+        "lib/M3U.js"
+      ]
     },
     "nw": {
-      "source": ["lib/M3U.js"],
-      "output": "release/M3U.nw.min.js"
+      "output": "release/M3U.nw.min.js",
+      "source": [
+        "lib/M3U.js"
+      ]
     },
     "el": {
-      "source": ["lib/M3U.js"],
-      "output": "release/M3U.el.min.js"
+      "output": "release/M3U.el.min.js",
+      "source": [
+        "lib/M3U.js"
+      ]
     }
   },
   "dependencies": {},
