@@ -53,9 +53,9 @@ chunklist_w1076224352.m3u8\n\
     console.dir(obj);
 
     if (obj["VERSION"] === 3) {
-        if (obj["LINK"][0].BANDWIDTH  === "710852" &&
-            obj["LINK"][0].CODECS     === "avc1.66.30,mp4a.40.2" &&
-            obj["LINK"][0].RESOLUTION === "432x768") {
+        if (obj["STREAM"][0].BANDWIDTH  === "710852" &&
+            obj["STREAM"][0].CODECS     === "avc1.66.30,mp4a.40.2" &&
+            obj["STREAM"][0].RESOLUTION === "432x768") {
 
             test.done(pass());
             return;
@@ -88,9 +88,9 @@ media_w1360442349_1461.ts\n\
         if (obj["CACHE"] === false) {
             if (obj["DURATION"] === 2) {
                 if (obj["SEQUENCE"] === 1459) {
-                    if (obj["LINK"][0].DURATION === "0.858") {
-                        if (obj["LINK"][1].DURATION === "0.886") {
-                            if (obj["LINK"][2].DURATION === "0.835") {
+                    if (obj["STREAM"][0].DURATION === "0.858") {
+                        if (obj["STREAM"][1].DURATION === "0.886") {
+                            if (obj["STREAM"][2].DURATION === "0.835") {
                                 test.done(pass());
                                 return;
                             }

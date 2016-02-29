@@ -34,11 +34,11 @@ media_w1360442349_1461.ts\n\
 var obj = M3U.parse(m3u8); // -> Object. { VERSION: 3, DURATION: 2, ... }
 var str = M3U.build(obj);  // -> M3U format string. "EXTM3U\n...."
 
-obj.VERSION           // -> 3
-obj.DURATION          // -> 2
-obj.SEQUENCE          // -> 1459
-obj.LINK[0].DURATION  // -> "0.858"
-obj.LINK[0].URL       // -> "media_w1360442349_1459.ts"
+obj.VERSION             // -> 3
+obj.DURATION            // -> 2
+obj.SEQUENCE            // -> 1459
+obj.STREAM[0].DURATION  // -> "0.858"
+obj.STREAM[0].URL       // -> "media_w1360442349_1459.ts"
 
 </script>
 ```
