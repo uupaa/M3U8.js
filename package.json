@@ -1,6 +1,6 @@
 {
   "name": "uupaa.m3u.js",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "M3U/M3U8 parser and builder.",
   "url": "https://github.com/uupaa/M3U.js",
   "keywords": ["MPEG2TS", "MP2TS", "M3U", "M3U8", "uupaa", "WebModule"],
