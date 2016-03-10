@@ -31,15 +31,16 @@ media_w1360442349_1460.ts\n\
 media_w1360442349_1461.ts\n\
 ";
 
-var indexPlayListObject = M3U.parse(m3u8); // -> { VERSION: 3, DURATION: 2, ... }
-var str = M3U.build(indexPlayListObject);  // -> M3U format string. "EXTM3U\n...."
+var indexPlayListObject = M3U.parse(m3u8); // -> { version: 3, duration: 2, stream: ... }
+
+indexPlayListObject.version     // -> 3
+indexPlayListObject.duration    // -> 2
+indexPlayListObject.sequence    // -> 1459
+
 var stream = indexPlayListObject[0];
 
-indexPlayListObject.VERSION     // -> 3
-indexPlayListObject.DURATION    // -> 2
-indexPlayListObject.SEQUENCE    // -> 1459
-stream.DURATION                 // -> "0.858"
-stream.URL                      // -> "media_w1360442349_1459.ts"
+stream.duration                 // -> "0.858"
+stream.url                      // -> "media_w1360442349_1459.ts"
 
 </script>
 ```
