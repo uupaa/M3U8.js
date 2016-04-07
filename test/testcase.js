@@ -42,6 +42,7 @@ chunklist_w1076224352.m3u8\n\
 
     if (obj["version"] === 3 && obj["isMaster"] === true) {
         if (stream0.bandwidth        === "710852" &&
+            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768' &&
             stream0.codecs           === "avc1.66.30,mp4a.40.2" &&
             stream0.video.codec      === "AVC"          &&
             stream0.video.profile    === "Base"         &&
