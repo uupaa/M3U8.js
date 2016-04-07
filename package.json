@@ -1,12 +1,12 @@
 {
-  "name": "uupaa.m3u.js",
-  "version": "1.0.0",
-  "description": "M3U/M3U8 parser and builder.",
-  "url": "https://github.com/uupaa/M3U.js",
-  "keywords": ["MPEG2TS", "ts", "HLS", "M3U", "M3U8", "uupaa", "WebModule"],
+  "name": "uupaa.m3u8.js",
+  "version": "2.0.0",
+  "description": "M3U8 Parser and Builder.",
+  "url": "https://github.com/uupaa/M3U8.js",
+  "keywords": ["HLS", "M3U", "M3U8", "uupaa", "WebModule"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/uupaa/M3U.js.git"
+    "url": "https://github.com/uupaa/M3U8.js.git"
   },
   "scripts": {
     "sync": "node ../WebModule/run/sync.js; npm update; node ../WebModule/run/page.js",
@@ -18,12 +18,12 @@
     "test": "npm run min; npm run node; npm run browser",
     "node": "NODE_ENV=production NODE_PATH=lib node test/node/index.js",
     "noded": "NODE_ENV=production NODE_PATH=lib node --debug-brk test/node/index.js",
-    "browser": "open http://localhost:8000/M3U.js/test/browser/index.html",
+    "browser": "open http://localhost:8000/M3U8.js/test/browser/index.html",
     "el": "electron test/el",
     "nw": "nw test/nw",
     "add-src": "node ../WebModule/run/add-src.js",
     "add-subclass": "node ../WebModule/run/add-subclass.js",
-    "sim": "node ../WebModule/run/sim.js http://localhost:8000/M3U.js/test/browser/index.html",
+    "sim": "node ../WebModule/run/sim.js http://localhost:8000/M3U8.js/test/browser/index.html",
     "simx": "node ../WebModule/run/sim.js stop",
     "lint": "eslint lib/*.js",
     "score": "node ../WebModule/run/score.js; open lint/plato/index.html",
@@ -36,37 +36,40 @@
     "develop": false,
     "label": ["@dev"],
     "browser": {
-      "output": "release/M3U.b.min.js",
+      "output": "release/M3U8.b.min.js",
       "source": [
-        "lib/M3U.js"
+        "lib/M3U8.js"
       ]
     },
     "worker": {
-      "output": "release/M3U.w.min.js",
+      "output": "release/M3U8.w.min.js",
       "source": [
-        "lib/M3U.js"
+        "lib/M3U8.js"
       ]
     },
     "node": {
-      "output": "release/M3U.n.min.js",
+      "output": "release/M3U8.n.min.js",
       "source": [
-        "lib/M3U.js"
+        "lib/M3U8.js"
       ]
     },
     "nw": {
-      "output": "release/M3U.nw.min.js",
+      "output": "release/M3U8.nw.min.js",
       "source": [
-        "lib/M3U.js"
+        "lib/M3U8.js"
       ]
     },
     "el": {
-      "output": "release/M3U.el.min.js",
+      "output": "release/M3U8.el.min.js",
       "source": [
-        "lib/M3U.js"
+        "lib/M3U8.js"
       ]
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "uupaa.aacprofile.js": "",
+    "uupaa.h264profile.js": ""
+  },
   "devDependencies": {},
   "lib": "./lib/",
   "main": "./index.js",

@@ -1,20 +1,20 @@
-# M3U.js [![Build Status](https://travis-ci.org/uupaa/M3U.js.svg)](https://travis-ci.org/uupaa/M3U.js)
+# M3U8.js [![Build Status](https://travis-ci.org/uupaa/M3U8.js.svg)](https://travis-ci.org/uupaa/M3U8.js)
 
-[![npm](https://nodei.co/npm/uupaa.m3u.js.svg?downloads=true&stars=true)](https://nodei.co/npm/uupaa.m3u.js/)
+[![npm](https://nodei.co/npm/uupaa.m3u8.js.svg?downloads=true&stars=true)](https://nodei.co/npm/uupaa.m3u8.js/)
 
-M3U/M3U8 parser and builder.
+M3U8 Parser and Builder.
 
 This module made of [WebModule](https://github.com/uupaa/WebModule).
 
 ## Documentation
-- [Spec](https://github.com/uupaa/M3U.js/wiki/)
-- [API Spec](https://github.com/uupaa/M3U.js/wiki/M3U)
+- [Spec](https://github.com/uupaa/M3U8.js/wiki/)
+- [API Spec](https://github.com/uupaa/M3U8.js/wiki/M3U8)
 
 ## Browser, NW.js and Electron
 
 ```js
 <script src="<module-dir>/lib/WebModule.js"></script>
-<script src="<module-dir>/lib/M3U.js"></script>
+<script src="<module-dir>/lib/M3U8.js"></script>
 <script>
 
 var m3u8 = "\n\
@@ -31,7 +31,7 @@ media_w1360442349_1460.ts\n\
 media_w1360442349_1461.ts\n\
 ";
 
-var indexPlayListObject = M3U.parse(m3u8); // -> { version: 3, duration: 2, stream: ... }
+var indexPlayListObject = M3U8.parse(m3u8); // -> { version: 3, duration: 2, stream: ... }
 
 indexPlayListObject.version     // -> 3
 indexPlayListObject.duration    // -> 2
@@ -48,16 +48,16 @@ stream.url                      // -> "media_w1360442349_1459.ts"
 ## WebWorkers
 
 ```js
-importScripts("<module-dir>lib/WebModule.js");
-importScripts("<module-dir>lib/M3U.js");
+importScripts("<module-dir>/lib/WebModule.js");
+importScripts("<module-dir>/lib/M3U8.js");
 
 ```
 
 ## Node.js
 
 ```js
-require("<module-dir>lib/WebModule.js");
-require("<module-dir>lib/M3U.js");
+require("<module-dir>/lib/WebModule.js");
+require("<module-dir>/lib/M3U8.js");
 
 ```
 

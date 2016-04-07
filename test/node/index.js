@@ -1,14 +1,15 @@
-// M3U test
+// M3U8 test
 
 require("../../lib/WebModule.js");
 
-WebModule.verify  = true;
-WebModule.verbose = true;
-WebModule.publish = true;
+WebModule.VERIFY  = true;
+WebModule.VERBOSE = true;
+WebModule.PUBLISH = true;
 
-
+require("../../node_modules/uupaa.aacprofile.js/lib/AACProfile.js");
+require("../../node_modules/uupaa.h264profile.js/lib/H264Profile.js");
 require("../wmtools.js");
-require("../../lib/M3U.js");
-require("../../release/M3U.n.min.js");
+require("../../lib/M3U8.js");
+require("../../release/M3U8.n.min.js");
 require("../testcase.js");
 

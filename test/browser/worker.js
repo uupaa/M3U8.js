@@ -1,4 +1,4 @@
-// M3U test
+// M3U8 test
 
 onmessage = function(event) {
     self.unitTest = event.data; // { message, setting: { secondary, baseDir } }
@@ -14,14 +14,15 @@ onmessage = function(event) {
 
     importScripts("../../lib/WebModule.js");
 
-    WebModule.verify  = true;
-    WebModule.verbose = true;
-    WebModule.publish = true;
+    WebModule.VERIFY  = true;
+    WebModule.VERBOSE = true;
+    WebModule.PUBLISH = true;
 
-    
+    importScripts("../../node_modules/uupaa.aacprofile.js/lib/AACProfile.js");
+    importScripts("../../node_modules/uupaa.h264profile.js/lib/H264Profile.js");
     importScripts("../wmtools.js");
-    importScripts("../../lib/M3U.js");
-    importScripts("../../release/M3U.w.min.js");
+    importScripts("../../lib/M3U8.js");
+    importScripts("../../release/M3U8.w.min.js");
     importScripts("../testcase.js");
 
     self.postMessage(self.unitTest);

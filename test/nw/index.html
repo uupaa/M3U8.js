@@ -1,18 +1,19 @@
-<!DOCTYPE html><html><head><title>M3U test</title>
+<!DOCTYPE html><html><head><title>M3U8 test</title>
 <meta name="viewport" content="width=device-width, user-scalable=no">
 <meta charset="utf-8"></head><body>
 
 <script src="../../lib/WebModule.js"></script>
 <script>
-WebModule.verify  = true;
-WebModule.verbose = true;
-WebModule.publish = true;
+WebModule.VERIFY  = true;
+WebModule.VERBOSE = true;
+WebModule.PUBLISH = true;
 </script>
 
-
+<script src="../../node_modules/uupaa.aacprofile.js/lib/AACProfile.js"></script>
+<script src="../../node_modules/uupaa.h264profile.js/lib/H264Profile.js"></script>
 <script src="../wmtools.js"></script>
-<script src="../../lib/M3U.js"></script>
-<script src="../../release/M3U.nw.min.js"></script>
+<script src="../../lib/M3U8.js"></script>
+<script src="../../release/M3U8.nw.min.js"></script>
 <script src="../testcase.js"></script>
 
 </body></html>

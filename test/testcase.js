@@ -1,8 +1,8 @@
-var ModuleTestM3U = (function(global) {
+var ModuleTestM3U8 = (function(global) {
 
 global["BENCHMARK"] = false;
 
-var test = new Test("M3U", {
+var test = new Test("M3U8", {
         disable:    false, // disable all tests.
         browser:    true,  // enable browser test.
         worker:     true,  // enable worker test.
@@ -18,28 +18,14 @@ var test = new Test("M3U", {
             console.error(error.message);
         }
     }).add([
-        testM3U_parseMasterPlayList,
-        testM3U_parseIndexPlayList,
-        testM3U_buildMasterPlayList,
-        testM3U_buildIndexPlayList,
+        testM3U8_parseMasterPlayList,
+        testM3U8_parseIndexPlayList,
+        testM3U8_buildMasterPlayList,
+        testM3U8_buildIndexPlayList,
     ]);
-
-if (IN_BROWSER || IN_NW || IN_EL) {
-    test.add([
-        // Browser, NW.js and Electron test
-    ]);
-} else if (IN_WORKER) {
-    test.add([
-        // WebWorkers test
-    ]);
-} else if (IN_NODE) {
-    test.add([
-        // Node.js test
-    ]);
-}
 
 // --- test cases ------------------------------------------
-function testM3U_parseMasterPlayList(test, pass, miss) {
+function testM3U8_parseMasterPlayList(test, pass, miss) {
 
     var source = '\n\
 #EXTM3U\n\
@@ -48,14 +34,21 @@ function testM3U_parseMasterPlayList(test, pass, miss) {
 chunklist_w1076224352.m3u8\n\
 ';
 
-    var obj = M3U.parse(source);
+    var obj = M3U8.parse(source);
 
     console.dir(obj);
 
+    var stream0 = obj["stream"][0];
+
     if (obj["version"] === 3 && obj["isMaster"] === true) {
-        if (obj["stream"][0].bandwidth  === "710852" &&
-            obj["stream"][0].codecs     === "avc1.66.30,mp4a.40.2" &&
-            obj["stream"][0].resolution === "432x768") {
+        if (stream0.bandwidth        === "710852" &&
+            stream0.codecs           === "avc1.66.30,mp4a.40.2" &&
+            stream0.video.codec      === "AVC"          &&
+            stream0.video.profile    === "Base"         &&
+            stream0.video.level      === "3.0"          &&
+            stream0.audio.codec      === "AAC"          &&
+            stream0.audio.profile    === "AAC-LC"       &&
+            stream0.resolution       === "432x768") {
 
             test.done(pass());
             return;
@@ -64,7 +57,7 @@ chunklist_w1076224352.m3u8\n\
     test.done(miss());
 }
 
-function testM3U_parseIndexPlayList(test, pass, miss) {
+function testM3U8_parseIndexPlayList(test, pass, miss) {
 
     var source = "\n\
 #EXTM3U\n\
@@ -80,7 +73,7 @@ media_w1360442349_1460.ts\n\
 media_w1360442349_1461.ts\n\
 ";
 
-    var obj = M3U.parse(source);
+    var obj = M3U8.parse(source);
 
     console.dir(obj);
 
@@ -103,7 +96,7 @@ media_w1360442349_1461.ts\n\
     test.done(miss());
 }
 
-function testM3U_buildMasterPlayList(test, pass, miss) {
+function testM3U8_buildMasterPlayList(test, pass, miss) {
     // MasterPlayList -> parse -> build -> parse -> build -> restoration
 
     var source = '#EXTM3U\n\
@@ -111,10 +104,10 @@ function testM3U_buildMasterPlayList(test, pass, miss) {
 #EXT-X-STREAM-INF:BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768\n\
 chunklist_w1076224352.m3u8';
 
-    var obj1 = M3U.parse(source);
-    var str1 = M3U.build(obj1);
-    var obj2 = M3U.parse(str1);
-    var str2 = M3U.build(obj2);
+    var obj1 = M3U8.parse(source);
+    var str1 = M3U8.build(obj1);
+    var obj2 = M3U8.parse(str1);
+    var str2 = M3U8.build(obj2);
 
     if (source === str2) {
         test.done(pass());
@@ -123,7 +116,7 @@ chunklist_w1076224352.m3u8';
     }
 }
 
-function testM3U_buildIndexPlayList(test, pass, miss) {
+function testM3U8_buildIndexPlayList(test, pass, miss) {
     // IndexPlayList -> parse -> build -> parse -> build -> restoration
 
     var source = '#EXTM3U\n\
@@ -138,10 +131,10 @@ media_w1360442349_1460.ts\n\
 #EXTINF:0.835,\n\
 media_w1360442349_1461.ts';
 
-    var obj1 = M3U.parse(source);
-    var str1 = M3U.build(obj1);
-    var obj2 = M3U.parse(str1);
-    var str2 = M3U.build(obj2);
+    var obj1 = M3U8.parse(source);
+    var str1 = M3U8.build(obj1);
+    var obj2 = M3U8.parse(str1);
+    var str2 = M3U8.build(obj2);
 
     var result1 = JSON.stringify(obj1);
     var result2 = JSON.stringify(obj2);
