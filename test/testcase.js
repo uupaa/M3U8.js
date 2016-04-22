@@ -40,7 +40,7 @@ chunklist_w1076224352.m3u8\n\
 
     var stream0 = obj["stream"][0];
 
-    if (obj["version"] === 3 && obj["isMaster"] === true) {
+    if (obj["version"] === 3 && obj["type"] === "MASTER") {
         if (stream0.bandwidth        === "710852" &&
             stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768' &&
             stream0.codecs           === "avc1.66.30,mp4a.40.2" &&
@@ -78,7 +78,7 @@ media_w1360442349_1461.ts\n\
 
     console.dir(obj);
 
-    if (obj["version"] === 3 && obj["isIndex"] === true) {
+    if (obj["version"] === 3 && obj["type"] === "INDEX") {
         if (obj["cache"] === false) {
             if (obj["duration"] === 2) {
                 if (obj["sequence"] === 1459) {
