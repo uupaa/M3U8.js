@@ -18,14 +18,14 @@ var test = new Test("M3U8", {
             console.error(error.message);
         }
     }).add([
-        testM3U8_parseMasterPlayList,
-        testM3U8_parseIndexPlayList,
-        testM3U8_buildMasterPlayList,
-        testM3U8_buildIndexPlayList,
+        testM3U8_parseMasterPlaylist,
+        testM3U8_parseIndexPlaylist,
+        testM3U8_buildMasterPlaylist,
+        testM3U8_buildIndexPlaylist,
     ]);
 
 // --- test cases ------------------------------------------
-function testM3U8_parseMasterPlayList(test, pass, miss) {
+function testM3U8_parseMasterPlaylist(test, pass, miss) {
 
     var source = '\n\
 #EXTM3U\n\
@@ -58,7 +58,7 @@ chunklist_w1076224352.m3u8\n\
     test.done(miss());
 }
 
-function testM3U8_parseIndexPlayList(test, pass, miss) {
+function testM3U8_parseIndexPlaylist(test, pass, miss) {
 
     var source = "\n\
 #EXTM3U\n\
@@ -97,8 +97,8 @@ media_w1360442349_1461.ts\n\
     test.done(miss());
 }
 
-function testM3U8_buildMasterPlayList(test, pass, miss) {
-    // MasterPlayList -> parse -> build -> parse -> build -> restoration
+function testM3U8_buildMasterPlaylist(test, pass, miss) {
+    // MasterPlaylist -> parse -> build -> parse -> build -> restoration
 
     var source = '#EXTM3U\n\
 #EXT-X-VERSION:3\n\
@@ -117,8 +117,8 @@ chunklist_w1076224352.m3u8';
     }
 }
 
-function testM3U8_buildIndexPlayList(test, pass, miss) {
-    // IndexPlayList -> parse -> build -> parse -> build -> restoration
+function testM3U8_buildIndexPlaylist(test, pass, miss) {
+    // IndexPlaylist -> parse -> build -> parse -> build -> restoration
 
     var source = '#EXTM3U\n\
 #EXT-X-VERSION:3\n\

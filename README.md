@@ -31,13 +31,13 @@ media_w1360442349_1460.ts\n\
 media_w1360442349_1461.ts\n\
 ";
 
-var indexPlayListObject = M3U8.parse(m3u8); // -> { version: 3, duration: 2, stream: ... }
+var indexPlaylistObject = M3U8.parse(m3u8); // -> { version: 3, duration: 2, stream: ... }
 
-indexPlayListObject.version     // -> 3
-indexPlayListObject.duration    // -> 2
-indexPlayListObject.sequence    // -> 1459
+indexPlaylistObject.version     // -> 3
+indexPlaylistObject.duration    // -> 2
+indexPlaylistObject.sequence    // -> 1459
 
-var stream = indexPlayListObject[0];
+var stream = indexPlaylistObject[0];
 
 stream.duration                 // -> "0.858"
 stream.url                      // -> "media_w1360442349_1459.ts"
