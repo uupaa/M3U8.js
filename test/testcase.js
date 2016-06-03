@@ -86,11 +86,11 @@ media_w1360442349_1461.ts\n\
 
     if (obj["version"] === 3 && obj["type"] === "LIVE") {
         if (obj["cache"] === false) {
-            if (obj["duration"] === 2) {
+            if (obj["duration"] === 2000) {
                 if (obj["sequence"] === 1459) {
-                    if (obj["stream"][0].duration === 0.858) {
-                        if (obj["stream"][1].duration === 0.886) {
-                            if (obj["stream"][2].duration === 0.835) {
+                    if (obj["stream"][0].duration === 858) {
+                        if (obj["stream"][1].duration === 886) {
+                            if (obj["stream"][2].duration === 835) {
                                 test.done(pass());
                                 return;
                             }
@@ -182,10 +182,10 @@ d.ts\n\
             stream[1].url === "b.ts" &&
             stream[2].url === "c.ts" &&
             stream[3].url === "d.ts") {
-            if (stream[0].duration === 2.0 &&
-                stream[1].duration === 2.0 &&
-                stream[2].duration === 2.0 &&
-                stream[3].duration === 2.0) {
+            if (stream[0].duration === 2000 &&
+                stream[1].duration === 2000 &&
+                stream[2].duration === 2000 &&
+                stream[3].duration === 2000) {
                 test.done(pass());
                 return;
             }
@@ -218,8 +218,8 @@ d.ts';
         stream[1].index === 3) {
         if (stream[0].url === "c.ts" &&
             stream[1].url === "d.ts") {
-            if (stream[0].duration === 2.0 &&
-                stream[1].duration === 2.0) {
+            if (stream[0].duration === 2000 &&
+                stream[1].duration === 2000) {
                 test.done(pass());
                 return;
             }
@@ -260,10 +260,10 @@ d.ts\n\
             stream[1].url === "b.ts" &&
             stream[2].url === "c.ts" &&
             stream[3].url === "d.ts") {
-            if (stream[0].duration === 2.0 &&
-                stream[1].duration === 2.0 &&
-                stream[2].duration === 2.0 &&
-                stream[3].duration === 2.0) {
+            if (stream[0].duration === 2000 &&
+                stream[1].duration === 2000 &&
+                stream[2].duration === 2000 &&
+                stream[3].duration === 2000) {
                 test.done(pass());
                 return;
             }
@@ -275,7 +275,7 @@ d.ts\n\
 function testM3U8_filterLiveSequenceIsNotZero(test, pass, miss) {
     // #EXT-X-ENDLIST がない → live
     // #EXT-X-MEDIA-SEQUENCE が 100 (0 以外)
-    // live を途中から再生している → 遅延を最小化するため threshold(3.0) を元に頭出しする → a.ts と b.ts がカットされ c.ts から再生する
+    // live を途中から再生している → 遅延を最小化するため threshold(3000) を元に頭出しする → a.ts と b.ts がカットされ c.ts から再生する
 
     var source = '#EXTM3U\n\
 #EXT-X-VERSION:3\n\
@@ -292,7 +292,7 @@ d.ts';
 
     var indexPlaylistObject = M3U8.parse(source);
     var currentIndex = 0;
-    var threshold = 3.0;
+    var threshold = 3000;
     var stream = M3U8.filter(indexPlaylistObject, currentIndex, threshold)["stream"]; // a.ts と b.ts がカットされる
 
     if (indexPlaylistObject.type === "LIVE" &&
@@ -301,8 +301,8 @@ d.ts';
         stream[1].index === 100 + 3) {
         if (stream[0].url === "c.ts" &&
             stream[1].url === "d.ts") {
-            if (stream[0].duration === 2.0 &&
-                stream[1].duration === 2.0) {
+            if (stream[0].duration === 2000 &&
+                stream[1].duration === 2000) {
                 test.done(pass());
                 return;
             }
@@ -332,7 +332,7 @@ d.ts\n\
 #EXT-X-ENDLIST';
 
     var indexPlaylistObject = M3U8.parse(source);
-    var threshold = 3.0;
+    var threshold = 3000;
     var currentIndex = 102;
     var stream = M3U8.filter(indexPlaylistObject, currentIndex, threshold)["stream"];
 
@@ -346,10 +346,10 @@ d.ts\n\
             stream[1].url === "b.ts" &&
             stream[2].url === "c.ts" &&
             stream[3].url === "d.ts") {
-            if (stream[0].duration === 2.0 &&
-                stream[1].duration === 2.0 &&
-                stream[2].duration === 2.0 &&
-                stream[3].duration === 2.0) {
+            if (stream[0].duration === 2000 &&
+                stream[1].duration === 2000 &&
+                stream[2].duration === 2000 &&
+                stream[3].duration === 2000) {
                 test.done(pass());
                 return;
             }
@@ -362,7 +362,7 @@ function testM3U8_filterLiveSequenceIsNotZeroWithIndex(test, pass, miss) {
     // #EXT-X-ENDLIST がない → live
     // #EXT-X-MEDIA-SEQUENCE が 100 (0 以外)
     // live を途中から再生している + 現在102まで再生済み(currentIndex = 101)
-    //  → 遅延を最小化するため threshold(3.0) を元に頭出しする
+    //  → 遅延を最小化するため threshold(3000) を元に頭出しする
     //  → a.ts(index:100), b.ts(index:101), c.ts(index.102) がカットされ d.ts から再生する
     //     再生可能な ts の総量(duration) が threshold 以下になるが、この場合は妥当
 
@@ -380,7 +380,7 @@ c.ts\n\
 d.ts';
 
     var indexPlaylistObject = M3U8.parse(source);
-    var threshold = 3.0;
+    var threshold = 3000;
     var currentIndex = 102;
     var stream = M3U8.filter(indexPlaylistObject, currentIndex, threshold)["stream"]; // a.ts, b.ts, c.ts がカットされる
 
@@ -388,7 +388,7 @@ d.ts';
         stream.length === 1 &&
         stream[0].index === 100 + 3) {
         if (stream[0].url === "d.ts") {
-            if (stream[0].duration === 2.0) {
+            if (stream[0].duration === 2000) {
                 test.done(pass());
                 return;
             }
