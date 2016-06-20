@@ -18,7 +18,10 @@ var test = new Test("M3U8", {
             console.error(error.message);
         }
     }).add([
-        testM3U8_parseMasterPlaylist,
+        testM3U8_parseMasterPlaylist_AAC_LC,
+        testM3U8_parseMasterPlaylist_HE_AAC,
+        testM3U8_parseMasterPlaylist_HE_AAC_v2,
+        testM3U8_parseMasterPlaylist_MP3,
         testM3U8_parseIndexPlaylist,
         testM3U8_buildMasterPlaylist,
         testM3U8_buildIndexPlaylist,
@@ -31,7 +34,7 @@ var test = new Test("M3U8", {
     ]);
 
 // --- test cases ------------------------------------------
-function testM3U8_parseMasterPlaylist(test, pass, miss) {
+function testM3U8_parseMasterPlaylist_AAC_LC(test, pass, miss) {
 
     var source = '\n\
 #EXTM3U\n\
@@ -55,6 +58,109 @@ chunklist_w1076224352.m3u8\n\
             stream0.video.level      === "3.0"          &&
             stream0.audio.codec      === "AAC"          &&
             stream0.audio.profile    === "AAC-LC"       &&
+            stream0.audio.objectType === 2              &&
+            stream0.resolution       === "432x768") {
+
+            test.done(pass());
+            return;
+        }
+    }
+    test.done(miss());
+}
+
+function testM3U8_parseMasterPlaylist_HE_AAC(test, pass, miss) {
+
+    var source = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-STREAM-INF:BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.5",RESOLUTION=432x768\n\
+chunklist_w1076224352.m3u8\n\
+';
+
+    var obj = M3U8.parse(source);
+
+    console.dir(obj);
+
+    var stream0 = obj["stream"][0];
+
+    if (obj["version"] === 3 && obj["type"] === "MASTER") {
+        if (stream0.bandwidth        === "710852" &&
+            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.5",RESOLUTION=432x768' &&
+            stream0.codecs           === "avc1.66.30,mp4a.40.5" &&
+            stream0.video.codec      === "AVC"          &&
+            stream0.video.profile    === "Base"         &&
+            stream0.video.level      === "3.0"          &&
+            stream0.audio.codec      === "AAC"          &&
+            stream0.audio.profile    === "HE-AAC"       &&
+            stream0.audio.objectType === 5              &&
+            stream0.resolution       === "432x768") {
+
+            test.done(pass());
+            return;
+        }
+    }
+    test.done(miss());
+}
+
+function testM3U8_parseMasterPlaylist_HE_AAC_v2(test, pass, miss) {
+
+    var source = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-STREAM-INF:BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.29",RESOLUTION=432x768\n\
+chunklist_w1076224352.m3u8\n\
+';
+
+    var obj = M3U8.parse(source);
+
+    console.dir(obj);
+
+    var stream0 = obj["stream"][0];
+
+    if (obj["version"] === 3 && obj["type"] === "MASTER") {
+        if (stream0.bandwidth        === "710852" &&
+            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.29",RESOLUTION=432x768' &&
+            stream0.codecs           === "avc1.66.30,mp4a.40.29" &&
+            stream0.video.codec      === "AVC"          &&
+            stream0.video.profile    === "Base"         &&
+            stream0.video.level      === "3.0"          &&
+            stream0.audio.codec      === "AAC"          &&
+            stream0.audio.profile    === "HE-AAC v2"    &&
+            stream0.audio.objectType === 29             &&
+            stream0.resolution       === "432x768") {
+
+            test.done(pass());
+            return;
+        }
+    }
+    test.done(miss());
+}
+
+function testM3U8_parseMasterPlaylist_MP3(test, pass, miss) {
+
+    var source = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-STREAM-INF:BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.34",RESOLUTION=432x768\n\
+chunklist_w1076224352.m3u8\n\
+';
+
+    var obj = M3U8.parse(source);
+
+    console.dir(obj);
+
+    var stream0 = obj["stream"][0];
+
+    if (obj["version"] === 3 && obj["type"] === "MASTER") {
+        if (stream0.bandwidth        === "710852" &&
+            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.34",RESOLUTION=432x768' &&
+            stream0.codecs           === "avc1.66.30,mp4a.40.34" &&
+            stream0.video.codec      === "AVC"          &&
+            stream0.video.profile    === "Base"         &&
+            stream0.video.level      === "3.0"          &&
+            stream0.audio.codec      === "MP3"          &&
+            stream0.audio.profile    === "MP3"          &&
+            stream0.audio.objectType === 34             &&
             stream0.resolution       === "432x768") {
 
             test.done(pass());
