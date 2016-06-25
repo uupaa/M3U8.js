@@ -31,6 +31,10 @@ var test = new Test("M3U8", {
         testM3U8_filterLiveSequenceIsNotZero,
         testM3U8_filterMovieSequenceIsNotZeroWithIndex,
         testM3U8_filterLiveSequenceIsNotZeroWithIndex,
+
+        testM3U8IndexPlaylist_merge_and_has,
+        testM3U8IndexPlaylist_fetch_and_clear,
+        testM3U8IndexPlaylist_properties,
     ]);
 
 // --- test cases ------------------------------------------
@@ -503,6 +507,137 @@ d.ts';
     test.done(miss());
 }
 
+function testM3U8IndexPlaylist_merge_and_has(test, pass, miss) {
+    var source1 = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:1\n\
+#EXTINF:1.1,\n\
+0001.ts\n\
+#EXTINF:1.2,\n\
+0002.ts\n\
+#EXTINF:1.3,\n\
+0003.ts';
+
+    var source2 = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:2\n\
+#EXTINF:1.2,\n\
+0002.ts\n\
+#EXTINF:1.3,\n\
+0003.ts\n\
+#EXTINF:1.4,\n\
+0004.ts';
+
+    var source3 = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:4\n\
+#EXTINF:1.4,\n\
+0004.ts\n\
+#EXTINF:1.5,\n\
+0005.ts\n\
+#EXTINF:1.6,\n\
+0006.ts';
+
+    var m3u8IndexPlaylist = new M3U8IndexPlaylist();
+
+    m3u8IndexPlaylist.merge(source1); // 1.1 + 1.2 + 1.3 = 3.56 sec
+
+    if ( m3u8IndexPlaylist.has(3.5 * 1000) ) { // 3.5秒分のデータがあるか?
+        m3u8IndexPlaylist.merge(source2); // 1.1 + 1.2 + 1.3 + 1.4 = 5 sec
+
+        if ( m3u8IndexPlaylist.has(5.0 * 1000) ) { // 5.0秒分のデータがあるか?
+            m3u8IndexPlaylist.merge(source3); // 1.1 + 1.2 + 1.3 + 1.4 + 1.5 + 1.6 = 8.1sec
+
+            if ( m3u8IndexPlaylist.has(8.1 * 1000) ) { // 8.1秒分のデータがあるか?
+                test.done(pass());
+                return;
+            }
+        }
+    }
+    test.done(miss());
+}
+
+function testM3U8IndexPlaylist_fetch_and_clear(test, pass, miss) {
+
+    var source1 = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:1\n\
+#EXTINF:1.1,\n\
+0001.ts\n\
+#EXTINF:1.2,\n\
+0002.ts\n\
+#EXTINF:1.3,\n\
+0003.ts';
+
+    var source2 = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:2\n\
+#EXTINF:1.2,\n\
+0002.ts\n\
+#EXTINF:1.3,\n\
+0003.ts\n\
+#EXTINF:1.4,\n\
+0004.ts';
+
+    var m3u8IndexPlaylist = new M3U8IndexPlaylist();
+
+    m3u8IndexPlaylist.merge(source1); // 1.1 + 1.2 + 1.3 = 3.56 sec
+    m3u8IndexPlaylist.merge(source2); // 1.1 + 1.2 + 1.3 + 1.4 = 5 sec
+
+    var subStream = m3u8IndexPlaylist.fetch(3 * 1000);
+
+    if (subStream.length === 3 && m3u8IndexPlaylist.stream.length === 1) {
+        m3u8IndexPlaylist.clear();
+        if (m3u8IndexPlaylist.stream.length === 0) {
+            test.done(pass());
+            return;
+        }
+    }
+    test.done(miss());
+}
+
+function testM3U8IndexPlaylist_properties(test, pass, miss) {
+
+    var source1 = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:1\n\
+#EXTINF:1.1,\n\
+0001.ts\n\
+#EXTINF:1.2,\n\
+0002.ts\n\
+#EXTINF:1.3,\n\
+0003.ts';
+
+    var m3u8IndexPlaylist = new M3U8IndexPlaylist(source1);
+
+    if (m3u8IndexPlaylist.live) {
+        if (m3u8IndexPlaylist.type === "LIVE") {
+            if (m3u8IndexPlaylist.version === 3) {
+                if (m3u8IndexPlaylist.cache === false) {
+                    if (m3u8IndexPlaylist.duration === 2000) {
+                        if (m3u8IndexPlaylist.sequence === 1) {
+                            test.done(pass());
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    test.done(miss());
+}
 
 return test.run();
 
