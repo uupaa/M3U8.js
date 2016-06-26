@@ -36,6 +36,11 @@ var test = new Test("M3U8", {
         testM3U8IndexPlaylist_fetch_and_clear,
         testM3U8IndexPlaylist_properties,
     ]);
+    if (IN_EL || IN_NW) {
+        test.add([
+            testM3U8Loader,
+        ]);
+    }
 
 // --- test cases ------------------------------------------
 function testM3U8_parseMasterPlaylist_AAC_LC(test, pass, miss) {
@@ -594,7 +599,7 @@ function testM3U8IndexPlaylist_fetch_and_clear(test, pass, miss) {
     m3u8IndexPlaylist.merge(source1); // 1.1 + 1.2 + 1.3 = 3.56 sec
     m3u8IndexPlaylist.merge(source2); // 1.1 + 1.2 + 1.3 + 1.4 = 5 sec
 
-    var subStream = m3u8IndexPlaylist.fetch(3 * 1000);
+    var subStream = m3u8IndexPlaylist.use(3 * 1000);
 
     if (subStream.length === 3 && m3u8IndexPlaylist.stream.length === 1) {
         m3u8IndexPlaylist.clear();
@@ -637,6 +642,132 @@ function testM3U8IndexPlaylist_properties(test, pass, miss) {
         }
     }
     test.done(miss());
+}
+
+function testM3U8Loader(test, pass, miss) {
+    var source1 = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:138\n\
+#EXTINF:1.218,\n\
+media_w391820094_138.ts\n\
+#EXTINF:1.069,\n\
+media_w391820094_139.ts\n\
+#EXTINF:1.054,\n\
+media_w391820094_140.ts\n\
+';
+
+    var source2 = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:139\n\
+#EXTINF:1.069,\n\
+media_w391820094_139.ts\n\
+#EXTINF:1.054,\n\
+media_w391820094_140.ts\n\
+#EXTINF:1.167,\n\
+media_w391820094_141.ts\n\
+';
+
+    var source3 = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:141\n\
+#EXTINF:1.167,\n\
+media_w391820094_141.ts\n\
+#EXTINF:1.189,\n\
+media_w391820094_142.ts\n\
+#EXTINF:1.101,\n\
+media_w391820094_143.ts\n\
+';
+
+    var source4 = '\n\
+#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:142\n\
+#EXTINF:1.189,\n\
+media_w391820094_142.ts\n\
+#EXTINF:1.101,\n\
+media_w391820094_143.ts\n\
+#EXTINF:1.003,\n\
+media_w391820094_144.ts\n\
+';
+
+    MPEG2TSParser.VERBOSE = false;
+    MPEG2TS.VERBOSE = false;
+    ADTS.VERBOSE = false;
+    MP4Muxer.VERBOSE = false;
+    MP4Builder.VERBOSE = false;
+    NALUnitAUD.VERBOSE = false;
+    NALUnitEBSP.VERBOSE = false;
+    NALUnitIDR.VERBOSE = false;
+    MPEG4ByteStream.VERBOSE = false;
+
+    var streams           = [source1, source2, source3, source4];
+    var counter           = 1000;
+    var m3u8IndexPlaylist = new M3U8IndexPlaylist();
+    var m3u8Loader        = new M3U8Loader();
+    var baseURL           = "../assets/";
+    var combined_ts       = "combined.ts";
+    var combined_mp4      = "combined.mp4";
+    var combined_aac      = "combined.aac";
+
+    var task = new Task("", 2, function(error, buffer) {
+        if (error) {
+            test.done(miss());
+        } else {
+            if (m3u8IndexPlaylist.used.join(",") === "138,139,140,141,142,143") {
+                if (m3u8IndexPlaylist.stream[0]["index"] === 144) { // remain
+                    test.done(pass());
+                    return;
+                }
+            }
+            test.done(miss());
+        }
+    });
+
+    streams.forEach(function(source) {
+        m3u8IndexPlaylist.merge(source);
+
+        var substream = m3u8IndexPlaylist.use(3000);
+
+        _puts(baseURL, substream);
+    });
+
+    function _puts(baseURL, substream) {
+        m3u8Loader.add(baseURL, substream, function(blobURL, indexes) {
+            console.log({ blobURL: blobURL, streamIndexes: indexes.join(",") });
+
+            FileLoader.toArrayBuffer(blobURL, function(arrayBuffer) {
+                var mpeg2ts         = MPEG2TS.parse( new Uint8Array(arrayBuffer) );
+                var videoByteStream = MPEG2TS.convertTSPacketToByteStream( mpeg2ts["VIDEO_TS_PACKET"] );
+                var audioByteStream = MPEG2TS.convertTSPacketToByteStream( mpeg2ts["AUDIO_TS_PACKET"] );
+                var adts            = ADTS.parse( audioByteStream );
+                var nalUnit         = MPEG4ByteStream.convertByteStreamToNALUnitObjectArray( videoByteStream );
+                var mp4tree         = MP4Muxer.mux( nalUnit, { audioDuration: adts.duration } );
+                var mp4file         = MP4Builder.build(mp4tree); // { stream, diagnostic }
+
+                require("fs").writeFileSync(baseURL + counter + "." + combined_ts,  new Buffer(arrayBuffer), "binary");
+                require("fs").writeFileSync(baseURL + counter + "." + combined_mp4, new Buffer(mp4file.stream.buffer), "binary");
+                require("fs").writeFileSync(baseURL + counter + "." + combined_aac, new Buffer(audioByteStream.buffer), "binary");
+                counter++;
+                task.pass();
+
+            }, function(error) {
+                task.miss();
+            });
+        }, function(error, indexes) {
+            task.miss();
+        });
+    }
 }
 
 return test.run();
