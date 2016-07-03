@@ -31,16 +31,19 @@ var test = new Test("M3U8", {
         testM3U8_filterLiveSequenceIsNotZero,
         testM3U8_filterMovieSequenceIsNotZeroWithIndex,
         testM3U8_filterLiveSequenceIsNotZeroWithIndex,
-
+/*
         testM3U8IndexPlaylist_merge_and_has,
         testM3U8IndexPlaylist_fetch_and_clear,
         testM3U8IndexPlaylist_properties,
+ */
     ]);
+/*
     if (IN_EL || IN_NW) {
         test.add([
             testM3U8Loader,
         ]);
     }
+ */
 
 // --- test cases ------------------------------------------
 function testM3U8_parseMasterPlaylist_AAC_LC(test, pass, miss) {
