@@ -25,7 +25,7 @@ var test = new Test("M3U8", {
         testM3U8_parseIndexPlaylist,
         testM3U8_buildMasterPlaylist,
         testM3U8_buildIndexPlaylist,
-        testM3U8_movieFragment,
+        testM3U8_VODFragment,
     ]);
 
 // --- test cases ------------------------------------------
@@ -254,7 +254,7 @@ media_w1360442349_1461.ts';
     }
 }
 
-function testM3U8_movieFragment(test, pass, miss) {
+function testM3U8_VODFragment(test, pass, miss) {
     var source = '#EXTM3U\n\
 #EXT-X-VERSION:3\n\
 #EXT-X-MEDIA-SEQUENCE:0\n\

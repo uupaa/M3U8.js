@@ -18,8 +18,8 @@ onmessage = function(event) {
     WebModule.VERBOSE = true;
     WebModule.PUBLISH = true;
 
-    importScripts("../../node_modules/uupaa.uri.js/lib/URI.js");
     importScripts("../../node_modules/uupaa.uri.js/lib/URISearchParams.js");
+    importScripts("../../node_modules/uupaa.uri.js/lib/URI.js");
     importScripts("../../node_modules/uupaa.task.js/lib/Task.js");
     importScripts("../../node_modules/uupaa.task.js/lib/TaskMap.js");
     importScripts("../../node_modules/uupaa.fileloader.js/lib/FileLoader.js");
@@ -29,7 +29,7 @@ onmessage = function(event) {
     importScripts("../wmtools.js");
     importScripts("../../lib/M3U8.js");
     importScripts("../../lib/M3U8LiveSpooler.js");
-    importScripts("../../lib/M3U8MovieSpooler.js");
+    importScripts("../../lib/M3U8VODSpooler.js");
     importScripts("../../lib/M3U8Spooler.js");
     importScripts("../../release/M3U8.w.min.js");
     importScripts("../testcase.js");

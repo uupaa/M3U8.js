@@ -1,6 +1,6 @@
 {
   "name": "uupaa.m3u8.js",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "description": "M3U8 Parser and Builder.",
   "url": "https://github.com/uupaa/M3U8.js",
   "keywords": ["HLS", "M3U", "M3U8", "uupaa", "WebModule"],
@@ -40,7 +40,7 @@
       "source": [
         "lib/M3U8.js",
         "lib/M3U8LiveSpooler.js",
-        "lib/M3U8MovieSpooler.js",
+        "lib/M3U8VODSpooler.js",
         "lib/M3U8Spooler.js"
       ]
     },
@@ -49,7 +49,7 @@
       "source": [
         "lib/M3U8.js",
         "lib/M3U8LiveSpooler.js",
-        "lib/M3U8MovieSpooler.js",
+        "lib/M3U8VODSpooler.js",
         "lib/M3U8Spooler.js"
       ]
     },
@@ -58,7 +58,7 @@
       "source": [
         "lib/M3U8.js",
         "lib/M3U8LiveSpooler.js",
-        "lib/M3U8MovieSpooler.js",
+        "lib/M3U8VODSpooler.js",
         "lib/M3U8Spooler.js"
       ]
     },
@@ -67,7 +67,7 @@
       "source": [
         "lib/M3U8.js",
         "lib/M3U8LiveSpooler.js",
-        "lib/M3U8MovieSpooler.js",
+        "lib/M3U8VODSpooler.js",
         "lib/M3U8Spooler.js"
       ]
     },
@@ -76,7 +76,7 @@
       "source": [
         "lib/M3U8.js",
         "lib/M3U8LiveSpooler.js",
-        "lib/M3U8MovieSpooler.js",
+        "lib/M3U8VODSpooler.js",
         "lib/M3U8Spooler.js"
       ]
     }
