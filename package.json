@@ -1,6 +1,6 @@
 {
   "name": "uupaa.m3u8.js",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "description": "M3U8 Parser and Builder.",
   "url": "https://github.com/uupaa/M3U8.js",
   "keywords": ["HLS", "M3U", "M3U8", "uupaa", "WebModule"],
@@ -38,52 +38,36 @@
     "browser": {
       "output": "release/M3U8.b.min.js",
       "source": [
-        "lib/M3U8.js",
-        "lib/M3U8LiveSpooler.js",
-        "lib/M3U8VODSpooler.js",
-        "lib/M3U8Spooler.js"
+        "lib/M3U8.js"
       ]
     },
     "worker": {
       "output": "release/M3U8.w.min.js",
       "source": [
-        "lib/M3U8.js",
-        "lib/M3U8LiveSpooler.js",
-        "lib/M3U8VODSpooler.js",
-        "lib/M3U8Spooler.js"
+        "lib/M3U8.js"
       ]
     },
     "node": {
       "output": "release/M3U8.n.min.js",
       "source": [
-        "lib/M3U8.js",
-        "lib/M3U8LiveSpooler.js",
-        "lib/M3U8VODSpooler.js",
-        "lib/M3U8Spooler.js"
+        "lib/M3U8.js"
       ]
     },
     "nw": {
       "output": "release/M3U8.nw.min.js",
       "source": [
-        "lib/M3U8.js",
-        "lib/M3U8LiveSpooler.js",
-        "lib/M3U8VODSpooler.js",
-        "lib/M3U8Spooler.js"
+        "lib/M3U8.js"
       ]
     },
     "el": {
       "output": "release/M3U8.el.min.js",
       "source": [
-        "lib/M3U8.js",
-        "lib/M3U8LiveSpooler.js",
-        "lib/M3U8VODSpooler.js",
-        "lib/M3U8Spooler.js"
+        "lib/M3U8.js"
       ]
     }
   },
   "dependencies": {
     "uupaa.uri.js": "",
-    "uupaa.task.js": "",
     "uupaa.fileloader.js": "",
     "uupaa.aacprofile.js": "",
     "uupaa.h264profile.js": ""

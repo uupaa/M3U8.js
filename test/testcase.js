@@ -22,10 +22,11 @@ var test = new Test("M3U8", {
         testM3U8_parseMasterPlaylist_HE_AAC,
         testM3U8_parseMasterPlaylist_HE_AAC_v2,
         testM3U8_parseMasterPlaylist_MP3,
-        testM3U8_parseIndexPlaylist,
+        testM3U8_parseMediaPlaylist_Live,
         testM3U8_buildMasterPlaylist,
-        testM3U8_buildIndexPlaylist,
-        testM3U8_VODFragment,
+        testM3U8_buildMediaPlaylist_Live,
+        testM3U8_buildMediaPlaylist_VOD,
+        testM3U8_tsRange_VOD,
     ]);
 
 // --- test cases ------------------------------------------
@@ -42,19 +43,19 @@ chunklist_w1076224352.m3u8\n\
 
     console.dir(obj);
 
-    var stream0 = obj["stream"][0];
+    var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (stream0.bandwidth        === "710852" &&
-            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768' &&
-            stream0.codecs           === "avc1.66.30,mp4a.40.2" &&
-            stream0.video.codec      === "AVC"          &&
-            stream0.video.profile    === "Base"         &&
-            stream0.video.level      === "3.0"          &&
-            stream0.audio.codec      === "AAC"          &&
-            stream0.audio.profile    === "AAC-LC"       &&
-            stream0.audio.objectType === 2              &&
-            stream0.resolution       === "432x768") {
+        if (s0.bandwidth        === "710852" &&
+            s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768' &&
+            s0.codecs           === "avc1.66.30,mp4a.40.2" &&
+            s0.video.codec      === "AVC"          &&
+            s0.video.profile    === "Base"         &&
+            s0.video.level      === "3.0"          &&
+            s0.audio.codec      === "AAC"          &&
+            s0.audio.profile    === "AAC-LC"       &&
+            s0.audio.objectType === 2              &&
+            s0.resolution       === "432x768") {
 
             test.done(pass());
             return;
@@ -76,19 +77,19 @@ chunklist_w1076224352.m3u8\n\
 
     console.dir(obj);
 
-    var stream0 = obj["stream"][0];
+    var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (stream0.bandwidth        === "710852" &&
-            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.5",RESOLUTION=432x768' &&
-            stream0.codecs           === "avc1.66.30,mp4a.40.5" &&
-            stream0.video.codec      === "AVC"          &&
-            stream0.video.profile    === "Base"         &&
-            stream0.video.level      === "3.0"          &&
-            stream0.audio.codec      === "AAC"          &&
-            stream0.audio.profile    === "HE-AAC"       &&
-            stream0.audio.objectType === 5              &&
-            stream0.resolution       === "432x768") {
+        if (s0.bandwidth        === "710852" &&
+            s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.5",RESOLUTION=432x768' &&
+            s0.codecs           === "avc1.66.30,mp4a.40.5" &&
+            s0.video.codec      === "AVC"          &&
+            s0.video.profile    === "Base"         &&
+            s0.video.level      === "3.0"          &&
+            s0.audio.codec      === "AAC"          &&
+            s0.audio.profile    === "HE-AAC"       &&
+            s0.audio.objectType === 5              &&
+            s0.resolution       === "432x768") {
 
             test.done(pass());
             return;
@@ -110,19 +111,19 @@ chunklist_w1076224352.m3u8\n\
 
     console.dir(obj);
 
-    var stream0 = obj["stream"][0];
+    var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (stream0.bandwidth        === "710852" &&
-            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.29",RESOLUTION=432x768' &&
-            stream0.codecs           === "avc1.66.30,mp4a.40.29" &&
-            stream0.video.codec      === "AVC"          &&
-            stream0.video.profile    === "Base"         &&
-            stream0.video.level      === "3.0"          &&
-            stream0.audio.codec      === "AAC"          &&
-            stream0.audio.profile    === "HE-AAC v2"    &&
-            stream0.audio.objectType === 29             &&
-            stream0.resolution       === "432x768") {
+        if (s0.bandwidth        === "710852" &&
+            s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.29",RESOLUTION=432x768' &&
+            s0.codecs           === "avc1.66.30,mp4a.40.29" &&
+            s0.video.codec      === "AVC"          &&
+            s0.video.profile    === "Base"         &&
+            s0.video.level      === "3.0"          &&
+            s0.audio.codec      === "AAC"          &&
+            s0.audio.profile    === "HE-AAC v2"    &&
+            s0.audio.objectType === 29             &&
+            s0.resolution       === "432x768") {
 
             test.done(pass());
             return;
@@ -144,19 +145,19 @@ chunklist_w1076224352.m3u8\n\
 
     console.dir(obj);
 
-    var stream0 = obj["stream"][0];
+    var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (stream0.bandwidth        === "710852" &&
-            stream0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.34",RESOLUTION=432x768' &&
-            stream0.codecs           === "avc1.66.30,mp4a.40.34" &&
-            stream0.video.codec      === "AVC"          &&
-            stream0.video.profile    === "Base"         &&
-            stream0.video.level      === "3.0"          &&
-            stream0.audio.codec      === "MP3"          &&
-            stream0.audio.profile    === "MP3"          &&
-            stream0.audio.objectType === 34             &&
-            stream0.resolution       === "432x768") {
+        if (s0.bandwidth        === "710852" &&
+            s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.34",RESOLUTION=432x768' &&
+            s0.codecs           === "avc1.66.30,mp4a.40.34" &&
+            s0.video.codec      === "AVC"          &&
+            s0.video.profile    === "Base"         &&
+            s0.video.level      === "3.0"          &&
+            s0.audio.codec      === "MP3"          &&
+            s0.audio.profile    === "MP3"          &&
+            s0.audio.objectType === 34             &&
+            s0.resolution       === "432x768") {
 
             test.done(pass());
             return;
@@ -165,7 +166,7 @@ chunklist_w1076224352.m3u8\n\
     test.done(miss());
 }
 
-function testM3U8_parseIndexPlaylist(test, pass, miss) {
+function testM3U8_parseMediaPlaylist_Live(test, pass, miss) {
 
     var source = "\n\
 #EXTM3U\n\
@@ -185,18 +186,35 @@ media_w1360442349_1461.ts\n\
 
     console.dir(obj);
 
-    if (obj["version"] === 3 && obj["type"] === "LIVE") {
-        if (obj["cache"] === false) {
-            if (obj["targetDuration"] === 2000) {
-                if (obj["sequence"] === 1459) {
-                    if (obj["stream"][0].duration === 858) {
-                        if (obj["stream"][1].duration === 886) {
-                            if (obj["stream"][2].duration === 835) {
-                                test.done(pass());
-                                return;
-                            }
-                        }
-                    }
+    if (obj["version"] === 3 &&
+        obj["type"] === "LIVE" &&
+        obj["allowCache"] === false &&
+        obj["targetDuration"] === 2000 &&
+        obj["mediaSequence"] === 1459) {
+
+        var s0 = obj["mediaSegments"][0];
+        var s1 = obj["mediaSegments"][1];
+        var s2 = obj["mediaSegments"][2];
+        if (s0.tsURL             === "media_w1360442349_1459.ts" &&
+            s0.tsID              === 1459 &&
+            s0.tsDuration        === 858  &&
+            s0.tsRange.startTime === 0    &&
+            s0.tsRange.endTime   === 858) {
+
+            if (s1.tsURL             === "media_w1360442349_1460.ts" &&
+                s1.tsID              === 1460  &&
+                s1.tsDuration        === 886   &&
+                s1.tsRange.startTime === 858   &&
+                s1.tsRange.endTime   === 858 + 886) {
+
+                if (s2.tsURL             === "media_w1360442349_1461.ts" &&
+                    s2.tsID              === 1461 &&
+                    s2.tsDuration        === 835  &&
+                    s2.tsRange.startTime === 1744 &&
+                    s2.tsRange.endTime   === 1744 + 835) {
+
+                    test.done(pass());
+                    return;
                 }
             }
         }
@@ -224,8 +242,8 @@ chunklist_w1076224352.m3u8';
     }
 }
 
-function testM3U8_buildIndexPlaylist(test, pass, miss) {
-    // IndexPlaylist -> parse -> build -> parse -> build -> restoration
+function testM3U8_buildMediaPlaylist_Live(test, pass, miss) {
+    // MediaPlaylist -> parse -> build -> parse -> build -> restoration
 
     var source = '#EXTM3U\n\
 #EXT-X-VERSION:3\n\
@@ -254,7 +272,38 @@ media_w1360442349_1461.ts';
     }
 }
 
-function testM3U8_VODFragment(test, pass, miss) {
+function testM3U8_buildMediaPlaylist_VOD(test, pass, miss) {
+    // MediaPlaylist -> parse -> build -> parse -> build -> restoration
+
+    var source = '#EXTM3U\n\
+#EXT-X-VERSION:3\n\
+#EXT-X-ALLOW-CACHE:NO\n\
+#EXT-X-TARGETDURATION:2\n\
+#EXT-X-MEDIA-SEQUENCE:1459\n\
+#EXTINF:0.858,\n\
+media_w1360442349_1459.ts\n\
+#EXTINF:0.886,\n\
+media_w1360442349_1460.ts\n\
+#EXTINF:0.835,\n\
+media_w1360442349_1461.ts\n\
+#EXT-X-ENDLIST';
+
+    var obj1 = M3U8.parse(source);
+    var str1 = M3U8.build(obj1);
+    var obj2 = M3U8.parse(str1);
+    var str2 = M3U8.build(obj2);
+
+    var result1 = JSON.stringify(obj1);
+    var result2 = JSON.stringify(obj2);
+
+    if (result1 === result2) {
+        test.done(pass());
+    } else {
+        test.done(miss());
+    }
+}
+
+function testM3U8_tsRange_VOD(test, pass, miss) {
     var source = '#EXTM3U\n\
 #EXT-X-VERSION:3\n\
 #EXT-X-MEDIA-SEQUENCE:0\n\
@@ -282,12 +331,12 @@ a008.ts\n\
 a009.ts\n\
 #EXT-X-ENDLIST';
 
-    var indexPlaylistObject = M3U8.parse(source);
-    var stream = indexPlaylistObject.stream;
+    var mediaPlaylistObject = M3U8.parse(source);
+    var mediaSegments = mediaPlaylistObject.mediaSegments;
 
-    if (stream.length === 10) {
-        if (stream[9].fragment[0] === 47576 &&
-            stream[9].fragment[1] === 49242) {
+    if (mediaSegments.length === 10) {
+        if (mediaSegments[9].tsRange.startTime === 47576 &&
+            mediaSegments[9].tsRange.endTime   === 49242) {
             test.done(pass());
             return;
         }

@@ -20,17 +20,12 @@ onmessage = function(event) {
 
     importScripts("../../node_modules/uupaa.uri.js/lib/URISearchParams.js");
     importScripts("../../node_modules/uupaa.uri.js/lib/URI.js");
-    importScripts("../../node_modules/uupaa.task.js/lib/Task.js");
-    importScripts("../../node_modules/uupaa.task.js/lib/TaskMap.js");
     importScripts("../../node_modules/uupaa.fileloader.js/lib/FileLoader.js");
     importScripts("../../node_modules/uupaa.fileloader.js/lib/FileLoaderQueue.js");
     importScripts("../../node_modules/uupaa.aacprofile.js/lib/AACProfile.js");
     importScripts("../../node_modules/uupaa.h264profile.js/lib/H264Profile.js");
     importScripts("../wmtools.js");
     importScripts("../../lib/M3U8.js");
-    importScripts("../../lib/M3U8LiveSpooler.js");
-    importScripts("../../lib/M3U8VODSpooler.js");
-    importScripts("../../lib/M3U8Spooler.js");
     importScripts("../../release/M3U8.w.min.js");
     importScripts("../testcase.js");
 
