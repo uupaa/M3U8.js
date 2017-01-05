@@ -270,10 +270,14 @@ media_w1360442349_1461.ts';
     var result2 = JSON.stringify(obj2);
 
     if (result1 === result2) {
-        test.done(pass());
-    } else {
-        test.done(miss());
+        if (source === str1) {
+            if (str1 === str2) {
+                test.done(pass());
+                return;
+            }
+        }
     }
+    test.done(miss());
 }
 
 function testM3U8_buildMediaPlaylist_VOD(test, pass, miss) {
@@ -301,10 +305,14 @@ media_w1360442349_1461.ts\n\
     var result2 = JSON.stringify(obj2);
 
     if (result1 === result2) {
-        test.done(pass());
-    } else {
-        test.done(miss());
+        if (source === str1) {
+            if (str1 === str2) {
+                test.done(pass());
+                return;
+            }
+        }
     }
+    test.done(miss());
 }
 
 function testM3U8_tsRange_VOD(test, pass, miss) {
