@@ -436,12 +436,13 @@ a009.ts';
 
 function testM3U8_loadMediaPlaylist_combined_Live_startTime0000(test, pass, miss) {
 /*
+#EXT-X-MEDIA-SEQUENCE:0
 #EXT-X-COMBINED:YES
-#EXTINF:1.0,\n\    <- 0000-1000 <- mediaSegments[0]
+#EXTINF:1.0,\n\    <- 0000-1000 <- mediaSegments[0] mediaSequence = 0
 a000.ts\n\
-#EXTINF:1.1,\n\    <- 1000-2100 <- mediaSegments[1]
+#EXTINF:1.1,\n\    <- 1000-2100 <- mediaSegments[1] mediaSequence = 1
 a001.ts\n\
-#EXTINF:1.2,\n\    <- 2100-3300 <- mediaSegments[2]
+#EXTINF:1.2,\n\    <- 2100-3300 <- mediaSegments[2] mediaSequence = 2
 a002.ts\n\
 #EXTINF:1.3,\n\    <- 3300-4600
 a003.ts\n\
@@ -478,8 +479,10 @@ a009.ts';
                     mediaSegments[1].tsRange.endTime   === 2100) { // 1000+1100
                     if (mediaSegments[2].tsRange.startTime === 2100 &&
                         mediaSegments[2].tsRange.endTime   === 3300) { // 2100+1200
-                        test.done(pass());
-                        return;
+                        if (playlist.mediaSequence === 0) {
+                            test.done(pass());
+                            return;
+                        }
                     }
                 }
             }
@@ -493,14 +496,15 @@ a009.ts';
 
 function testM3U8_loadMediaPlaylist_combined_Live_startTime2000(test, pass, miss) {
 /*
+#EXT-X-MEDIA-SEQUENCE:0
 #EXT-X-COMBINED:YES
-#EXTINF:1.0,\n\    <- 0000-1000 <- skip
+#EXTINF:1.0,\n\    <- 0000-1000 <- skip             mediaSequence = 0
 a000.ts\n\
-#EXTINF:1.1,\n\    <- 1000-2100 <- mediaSegments[0]
+#EXTINF:1.1,\n\    <- 1000-2100 <- mediaSegments[0] mediaSequence = 1
 a001.ts\n\
-#EXTINF:1.2,\n\    <- 2100-3300 <- mediaSegments[1]
+#EXTINF:1.2,\n\    <- 2100-3300 <- mediaSegments[1] mediaSequence = 2
 a002.ts\n\
-#EXTINF:1.3,\n\    <- 3300-4600 <- mediaSegments[2]
+#EXTINF:1.3,\n\    <- 3300-4600 <- mediaSegments[2] mediaSequence = 3
 a003.ts\n\
 #EXTINF:1.4,\n\    <- 4600-6000
 a004.ts\n\
@@ -535,8 +539,10 @@ a009.ts';
                     mediaSegments[1].tsRange.endTime   === 3300) { // 2100+1200
                     if (mediaSegments[2].tsRange.startTime === 3300 &&
                         mediaSegments[2].tsRange.endTime   === 4600) { // 3300+1300
-                        test.done(pass());
-                        return;
+                        if (playlist.mediaSequence === 1) {
+                            test.done(pass());
+                            return;
+                        }
                     }
                 }
             }
@@ -550,26 +556,27 @@ a009.ts';
 
 function testM3U8_loadMediaPlaylist_combined_Live_startTime11000(test, pass, miss) {
 /*
+#EXT-X-MEDIA-SEQUENCE:0
 #EXT-X-COMBINED:YES
-#EXTINF:1.0,\n\    <- 0000-1000 <- skip
+#EXTINF:1.0,\n\    <- 0000-1000 <- skip mediaSequence = 0
 a000.ts\n\
-#EXTINF:1.1,\n\    <- 1000-2100 <- skip
+#EXTINF:1.1,\n\    <- 1000-2100 <- skip mediaSequence = 1
 a001.ts\n\
-#EXTINF:1.2,\n\    <- 2100-3300 <- skip
+#EXTINF:1.2,\n\    <- 2100-3300 <- skip mediaSequence = 2
 a002.ts\n\
-#EXTINF:1.3,\n\    <- 3300-4600 <- skip
+#EXTINF:1.3,\n\    <- 3300-4600 <- skip mediaSequence = 3
 a003.ts\n\
-#EXTINF:1.4,\n\    <- 4600-6000 <- skip
+#EXTINF:1.4,\n\    <- 4600-6000 <- skip mediaSequence = 4
 a004.ts\n\
-#EXTINF:1.5,\n\    <- 6000-7500 <- skip
+#EXTINF:1.5,\n\    <- 6000-7500 <- skip mediaSequence = 5
 a005.ts\n\
-#EXTINF:1.6,\n\    <- 7500-9100 <- skip
+#EXTINF:1.6,\n\    <- 7500-9100 <- skip mediaSequence = 6
 a006.ts\n\
-#EXTINF:1.7,\n\    <- 9100-10800 <- skip
+#EXTINF:1.7,\n\    <- 9100-10800 <- skip mediaSequence = 7
 a007.ts\n\
-#EXTINF:1.8,\n\    <- 10800-12600 <- mediaSegments[0]
+#EXTINF:1.8,\n\    <- 10800-12600 <- mediaSegments[0] mediaSequence = 8
 a008.ts\n\
-#EXTINF:1.9,\n\    <- 12600-14500 <- mediaSegments[1]
+#EXTINF:1.9,\n\    <- 12600-14500 <- mediaSegments[1] mediaSequence = 9
 a009.ts';
  */
 
@@ -591,8 +598,10 @@ a009.ts';
                 mediaSegments[0].tsRange.endTime   === 12600) {
                 if (mediaSegments[1].tsRange.startTime === 12600 &&
                     mediaSegments[1].tsRange.endTime   === 14500) {
-                    test.done(pass());
-                    return;
+                    if (playlist.mediaSequence === 8) {
+                        test.done(pass());
+                        return;
+                    }
                 }
             }
         }
