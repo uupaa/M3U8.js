@@ -31,6 +31,8 @@ var test = new Test("M3U8", {
         testM3U8_loadMediaPlaylist_combined_Live_startTime0000,
         testM3U8_loadMediaPlaylist_combined_Live_startTime2000,
         testM3U8_loadMediaPlaylist_combined_Live_startTime11000,
+        testM3U8_loadMediaPlaylist_combined_Live_startTime13000,
+        testM3U8_loadMediaPlaylist_combined_Live_startTime15000,
     ]);
 
 // --- test cases ------------------------------------------
@@ -612,6 +614,112 @@ a009.ts';
     }, { timeout: 1000 });
 }
 
+function testM3U8_loadMediaPlaylist_combined_Live_startTime13000(test, pass, miss) {
+/*
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-COMBINED:YES
+#EXTINF:1.0,\n\    <- 0000-1000 <- skip mediaSequence = 0
+a000.ts\n\
+#EXTINF:1.1,\n\    <- 1000-2100 <- skip mediaSequence = 1
+a001.ts\n\
+#EXTINF:1.2,\n\    <- 2100-3300 <- skip mediaSequence = 2
+a002.ts\n\
+#EXTINF:1.3,\n\    <- 3300-4600 <- skip mediaSequence = 3
+a003.ts\n\
+#EXTINF:1.4,\n\    <- 4600-6000 <- skip mediaSequence = 4
+a004.ts\n\
+#EXTINF:1.5,\n\    <- 6000-7500 <- skip mediaSequence = 5
+a005.ts\n\
+#EXTINF:1.6,\n\    <- 7500-9100 <- skip mediaSequence = 6
+a006.ts\n\
+#EXTINF:1.7,\n\    <- 9100-10800 <- skip mediaSequence = 7
+a007.ts\n\
+#EXTINF:1.8,\n\    <- 10800-12600 <- skip mediaSequence = 8
+a008.ts\n\
+#EXTINF:1.9,\n\    <- 12600-14500 <- mediaSegments[0] mediaSequence = 9
+a009.ts';
+ */
+
+
+    var url = IN_NODE ? "test/assets/testM3U8_combined_Live.m3u8"
+                      : "../assets/testM3U8_combined_Live.m3u8";
+
+    M3U8.load(url, function(m3u8, url) {
+        var playlist = M3U8.parse(m3u8, url);
+
+        playlist = M3U8.trim(playlist, { startTime: 13000, maxLength: 3 });
+
+        var mediaSegments = playlist.mediaSegments;
+
+        if (playlist.type === "LIVE" &&
+            playlist.combined &&
+            mediaSegments.length === 1) {
+            if (mediaSegments[0].tsRange.startTime === 12600 &&
+                mediaSegments[0].tsRange.endTime   === 14500) {
+                if (playlist.mediaSequence === 9) {
+                    test.done(pass());
+                    return;
+                }
+            }
+        }
+        test.done(miss());
+    }, function(error, url) {
+        console.error(error, url);
+        test.done(miss());
+    }, { timeout: 1000 });
+}
+
+function testM3U8_loadMediaPlaylist_combined_Live_startTime15000(test, pass, miss) {
+/*
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-COMBINED:YES
+#EXTINF:1.0,\n\    <- 0000-1000 <- skip mediaSequence = 0
+a000.ts\n\
+#EXTINF:1.1,\n\    <- 1000-2100 <- skip mediaSequence = 1
+a001.ts\n\
+#EXTINF:1.2,\n\    <- 2100-3300 <- skip mediaSequence = 2
+a002.ts\n\
+#EXTINF:1.3,\n\    <- 3300-4600 <- skip mediaSequence = 3
+a003.ts\n\
+#EXTINF:1.4,\n\    <- 4600-6000 <- skip mediaSequence = 4
+a004.ts\n\
+#EXTINF:1.5,\n\    <- 6000-7500 <- skip mediaSequence = 5
+a005.ts\n\
+#EXTINF:1.6,\n\    <- 7500-9100 <- skip mediaSequence = 6
+a006.ts\n\
+#EXTINF:1.7,\n\    <- 9100-10800 <- skip mediaSequence = 7
+a007.ts\n\
+#EXTINF:1.8,\n\    <- 10800-12600 <- skip mediaSequence = 8
+a008.ts\n\
+#EXTINF:1.9,\n\    <- 12600-14500 <- skip mediaSequence = 9
+a009.ts';
+ */
+
+
+    var url = IN_NODE ? "test/assets/testM3U8_combined_Live.m3u8"
+                      : "../assets/testM3U8_combined_Live.m3u8";
+
+    M3U8.load(url, function(m3u8, url) {
+        var playlist = M3U8.parse(m3u8, url);
+
+        playlist = M3U8.trim(playlist, { startTime: 15000, maxLength: 3 });
+
+        var mediaSegments = playlist.mediaSegments;
+
+        if (playlist.type === "LIVE" &&
+            playlist.combined &&
+            mediaSegments.length === 0) {
+                    if (playlist.mediaSequence === 0) {
+                        test.done(pass());
+                        return;
+                    }
+        }
+        test.done(miss());
+    }, function(error, url) {
+        console.error(error, url);
+        test.done(miss());
+    }, { timeout: 1000 });
+}
 
 return test.run();
 
