@@ -33,6 +33,7 @@ var test = new Test("M3U8", {
         testM3U8_loadMediaPlaylist_combined_Live_startTime11000,
         testM3U8_loadMediaPlaylist_combined_Live_startTime13000,
         testM3U8_loadMediaPlaylist_combined_Live_startTime15000,
+        testM3U8_loadMediaPlaylist,
     ]);
 
 // --- test cases ------------------------------------------
@@ -719,6 +720,22 @@ a009.ts';
         console.error(error, url);
         test.done(miss());
     }, { timeout: 1000 });
+}
+
+function testM3U8_loadMediaPlaylist(test, pass, miss) {
+    var url = IN_NODE ? "test/assets/testM3U8_loadMediaPlaylist.master.m3u8"
+                      : "../assets/testM3U8_loadMediaPlaylist.master.m3u8";
+
+    M3U8.loadMediaPlaylist(url, function(m3u8, url, playlist) {
+        var segments = playlist["mediaSegments"];
+        if (segments.length === 3) {
+            test.done(pass());
+        } else {
+            test.done(miss());
+        }
+    }, function(error, url, code) {
+        test.done(miss());
+    });
 }
 
 return test.run();
