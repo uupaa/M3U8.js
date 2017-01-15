@@ -34,6 +34,7 @@ var test = new Test("M3U8", {
         testM3U8_loadMediaPlaylist_combined_Live_startTime13000,
         testM3U8_loadMediaPlaylist_combined_Live_startTime15000,
         testM3U8_loadMediaPlaylist,
+        testM3U8_loadMediaPlaylist_unsupported_profile,
     ]);
 
 // --- test cases ------------------------------------------
@@ -736,6 +737,46 @@ function testM3U8_loadMediaPlaylist(test, pass, miss) {
     }, function(error, url, code) {
         test.done(miss());
     });
+}
+
+function testM3U8_loadMediaPlaylist_unsupported_profile(test, pass, miss) {
+    var url = IN_NODE ? "test/assets/testM3U8_loadMediaPlaylist_unsupported_profile.master.m3u8"
+                      : "../assets/testM3U8_loadMediaPlaylist_unsupported_profile.master.m3u8";
+
+    // Master playlist
+    //      Video: High profile Level 4.1
+    //      Audio: AAC-LC
+    // #EXTM3U
+    // #EXT-X-VERSION:3
+    // #EXT-X-STREAM-INF:BANDWIDTH=856501,CODECS="avc1.100.41,mp4a.40.2",RESOLUTION=360x640
+    // chunklist_w917976154.m3u8
+
+    M3U8.loadMediaPlaylist(url, function(m3u8, url, playlist) {
+        test.done(miss());
+    }, function(error, url, code) {
+        // Because will supports "Baseline profile" or "Main profile"
+        console.log(error.message);
+        test.done(pass());
+    }, function(masterStreams) {
+        return _selectBetterStreamIndex(masterStreams);
+    });
+
+    function _selectBetterStreamIndex(masterStreams) { // @arg MasterStreamObjectArray - [MasterStreamObject, ...]
+                                                       // @ret UINT8 - stream-index or 255
+                                                       // @desc selecting the appropriate HLS stream.
+        var videoCanPlay = /^(Base|Main)/;
+        var audioCanPlay = /AAC/;
+
+        for (var i = 0, iz = masterStreams.length; i < iz; ++i) {
+            var stream = masterStreams[i];
+
+            if ( videoCanPlay.test(stream["video"]["profile"]) &&
+                 audioCanPlay.test(stream["audio"]["profile"]) ) {
+                return i; // H.264 Baseline profile, AAC-LC -> NICE
+            }
+        }
+        return 255;
+    }
 }
 
 return test.run();
