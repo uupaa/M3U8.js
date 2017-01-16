@@ -35,6 +35,7 @@ var test = new Test("M3U8", {
         testM3U8_loadMediaPlaylist_combined_Live_startTime15000,
         testM3U8_loadMediaPlaylist,
         testM3U8_loadMediaPlaylist_unsupported_profile,
+        testM3U8_collectPlaylist,
     ]);
 
 // --- test cases ------------------------------------------
@@ -195,7 +196,7 @@ media_w1360442349_1461.ts\n\
     console.dir(obj);
 
     if (obj["version"] === 3 &&
-        obj["type"] === "LIVE" &&
+        obj["type"] === "NRTLIVE" &&
         obj["allowCache"] === false &&
         obj["targetDuration"] === 2000 &&
         obj["mediaSequence"] === 1459) {
@@ -751,7 +752,7 @@ function testM3U8_loadMediaPlaylist_unsupported_profile(test, pass, miss) {
     // #EXT-X-STREAM-INF:BANDWIDTH=856501,CODECS="avc1.100.41,mp4a.40.2",RESOLUTION=360x640
     // chunklist_w917976154.m3u8
 
-    M3U8.loadMediaPlaylist(url, function(m3u8, url, playlist) {
+    M3U8.loadMediaPlaylist(url, function(m3u8, url, mediaPlaylist, masterPlaylist) {
         test.done(miss());
     }, function(error, url, code) {
         // Because will supports "Baseline profile" or "Main profile"
@@ -759,6 +760,24 @@ function testM3U8_loadMediaPlaylist_unsupported_profile(test, pass, miss) {
         test.done(pass());
     });
 }
+
+function testM3U8_collectPlaylist(test, pass, miss) {
+    var url = IN_NODE ? "test/assets/testM3U8_loadMediaPlaylist.master.m3u8"
+                      : "../assets/testM3U8_loadMediaPlaylist.master.m3u8";
+
+    M3U8.collectPlaylist(url, function(playlists) { // @arg MasterPlaylist|MediaPlaylistArray - [playlist, ...]
+        if (playlists.length === 2 &&
+            playlists[0].type === "MASTER" &&
+            playlists[1].type === "NRTLIVE") {
+            test.done(pass());
+        } else {
+            test.done(miss());
+        }
+    }, function(error, url, code) {
+        test.done(miss());
+    });
+}
+
 
 return test.run();
 
