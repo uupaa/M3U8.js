@@ -757,26 +757,7 @@ function testM3U8_loadMediaPlaylist_unsupported_profile(test, pass, miss) {
         // Because will supports "Baseline profile" or "Main profile"
         console.log(error.message);
         test.done(pass());
-    }, function(masterStreams) {
-        return _selectBetterStreamIndex(masterStreams);
     });
-
-    function _selectBetterStreamIndex(masterStreams) { // @arg MasterStreamObjectArray - [MasterStreamObject, ...]
-                                                       // @ret UINT8 - stream-index or 255
-                                                       // @desc selecting the appropriate HLS stream.
-        var videoCanPlay = /^(Base|Main)/;
-        var audioCanPlay = /AAC/;
-
-        for (var i = 0, iz = masterStreams.length; i < iz; ++i) {
-            var stream = masterStreams[i];
-
-            if ( videoCanPlay.test(stream["video"]["profile"]) &&
-                 audioCanPlay.test(stream["audio"]["profile"]) ) {
-                return i; // H.264 Baseline profile, AAC-LC -> NICE
-            }
-        }
-        return 255;
-    }
 }
 
 return test.run();
