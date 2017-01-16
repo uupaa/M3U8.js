@@ -765,10 +765,11 @@ function testM3U8_collectPlaylist(test, pass, miss) {
     var url = IN_NODE ? "test/assets/testM3U8_loadMediaPlaylist.master.m3u8"
                       : "../assets/testM3U8_loadMediaPlaylist.master.m3u8";
 
-    M3U8.collectPlaylist(url, function(playlists) { // @arg MasterPlaylist|MediaPlaylistArray - [playlist, ...]
-        if (playlists.length === 2 &&
-            playlists[0].type === "MASTER" &&
-            playlists[1].type === "NRTLIVE") {
+    M3U8.collectPlaylist(url, function(mediaPlaylists, masterPlaylists) { // @arg MasterPlaylist|MediaPlaylistArray - [playlist, ...]
+        if (mediaPlaylists.length === 1 &&
+            masterPlaylists.length === 1 &&
+            mediaPlaylists[0].type === "NRTLIVE" &&
+            masterPlaylists[0].type === "MASTER") {
             test.done(pass());
         } else {
             test.done(miss());
