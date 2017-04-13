@@ -60,6 +60,7 @@ chunklist_w1076224352.m3u8\n\
             s0.codecs           === "avc1.66.30,mp4a.40.2" &&
             s0.video.codec      === "AVC"          &&
             s0.video.profile    === "Base"         &&
+            s0.video.profileID  === 66             &&
             s0.video.level      === "3.0"          &&
             s0.audio.codec      === "AAC"          &&
             s0.audio.profile    === "AAC-LC"       &&
@@ -94,6 +95,7 @@ chunklist_w1076224352.m3u8\n\
             s0.codecs           === "avc1.66.30,mp4a.40.5" &&
             s0.video.codec      === "AVC"          &&
             s0.video.profile    === "Base"         &&
+            s0.video.profileID  === 66             &&
             s0.video.level      === "3.0"          &&
             s0.audio.codec      === "AAC"          &&
             s0.audio.profile    === "HE-AAC"       &&
@@ -128,6 +130,7 @@ chunklist_w1076224352.m3u8\n\
             s0.codecs           === "avc1.66.30,mp4a.40.29" &&
             s0.video.codec      === "AVC"          &&
             s0.video.profile    === "Base"         &&
+            s0.video.profileID  === 66             &&
             s0.video.level      === "3.0"          &&
             s0.audio.codec      === "AAC"          &&
             s0.audio.profile    === "HE-AAC v2"    &&
@@ -162,6 +165,7 @@ chunklist_w1076224352.m3u8\n\
             s0.codecs           === "avc1.66.30,mp4a.40.34" &&
             s0.video.codec      === "AVC"          &&
             s0.video.profile    === "Base"         &&
+            s0.video.profileID  === 66             &&
             s0.video.level      === "3.0"          &&
             s0.audio.codec      === "MP3"          &&
             s0.audio.profile    === "MP3"          &&
