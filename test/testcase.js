@@ -55,7 +55,7 @@ chunklist_w1076224352.m3u8\n\
     var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (s0.bandwidth        === "710852" &&
+        if (s0.bandwidth        === 710852 &&
             s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.2",RESOLUTION=432x768' &&
             s0.codecs           === "avc1.66.30,mp4a.40.2" &&
             s0.video.codec      === "AVC"          &&
@@ -90,7 +90,7 @@ chunklist_w1076224352.m3u8\n\
     var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (s0.bandwidth        === "710852" &&
+        if (s0.bandwidth        === 710852 &&
             s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.5",RESOLUTION=432x768' &&
             s0.codecs           === "avc1.66.30,mp4a.40.5" &&
             s0.video.codec      === "AVC"          &&
@@ -125,7 +125,7 @@ chunklist_w1076224352.m3u8\n\
     var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (s0.bandwidth        === "710852" &&
+        if (s0.bandwidth        === 710852 &&
             s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.29",RESOLUTION=432x768' &&
             s0.codecs           === "avc1.66.30,mp4a.40.29" &&
             s0.video.codec      === "AVC"          &&
@@ -160,7 +160,7 @@ chunklist_w1076224352.m3u8\n\
     var s0 = obj["streams"][0];
 
     if (obj["version"] === 3 && obj["type"] === "MASTER") {
-        if (s0.bandwidth        === "710852" &&
+        if (s0.bandwidth        === 710852 &&
             s0.info             === 'BANDWIDTH=710852,CODECS="avc1.66.30,mp4a.40.34",RESOLUTION=432x768' &&
             s0.codecs           === "avc1.66.30,mp4a.40.34" &&
             s0.video.codec      === "AVC"          &&
